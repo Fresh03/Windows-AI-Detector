@@ -102,3 +102,8 @@ In `detect.py` you can adjust:
 - [CustomTkinter](https://github.com/TomSchimansky/CustomTkinter) — dark modern GUI
 - [SQLite](https://www.sqlite.org/) — local database
 - [python-dotenv](https://github.com/theskumar/python-dotenv) — API key management
+
+TODO:
+1. Verify .env file isn't corrupted
+2. Add Delete button for an image
+3. Add Delete button of a detection
