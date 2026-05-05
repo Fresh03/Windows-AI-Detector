@@ -117,14 +117,14 @@ def init_db():
 #
 def insert_image(filepath, width_px, height_px):
     conn = get_connection()
-    # Check if this file was already processed (prevents duplicates)
-    existing = conn.execute(
-        "SELECT id FROM images WHERE filename = ?",
-        (Path(filepath).name,)
-    ).fetchone()
-    if existing:
-        conn.close()
-        return existing["id"]
+    cursor = conn.execute(
+        "INSERT INTO images (filepath, filename, width_px, height_px, processed_at) VALUES (?, ?, ?, ?, ?)",
+        (str(filepath), Path(filepath).name, width_px, height_px, datetime.now().isoformat())
+    )
+    image_id = cursor.lastrowid
+    conn.commit()
+    conn.close()
+    return image_id
     # File not found in database, so insert new record
     cursor = conn.execute(
         "INSERT INTO images (filepath, filename, width_px, height_px, processed_at) VALUES (?, ?, ?, ?, ?)",
